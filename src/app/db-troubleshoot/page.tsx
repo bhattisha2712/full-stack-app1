@@ -21,41 +21,8 @@ interface LocalTest {
   error?: string;
 }
 
-  const [atlasConfig, setAtlasConfig] = useState<AtlasConfig | null>(null);
-  const [localTest, setLocalTest] = useState<LocalTest | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    Promise.all([
-      fetch("/api/db-config").then(res => res.json()),
-      fetch("/api/db-local").then(res => res.json())
-    ]).then(([config, local]) => {
-      setAtlasConfig(config);
-      setLocalTest(local);
-"use client";
-
-import { useEffect, useState } from "react";
-
-interface AtlasConnectionDetails {
-  hostname?: string;
-  port?: number | string;
-  username?: string;
-  hasPassword?: boolean;
-  database?: string;
-  protocol?: string;
-}
-
-interface AtlasConfig {
-  connectionDetails?: AtlasConnectionDetails;
-}
-
-interface LocalTest {
-  status?: string;
-  message?: string;
-  error?: string;
-}
-
 export default function DbTroubleshootPage() {
+
   const [atlasConfig, setAtlasConfig] = useState<AtlasConfig | null>(null);
   const [localTest, setLocalTest] = useState<LocalTest | null>(null);
   const [loading, setLoading] = useState(true);
@@ -72,21 +39,23 @@ export default function DbTroubleshootPage() {
   }, []);
 
   if (loading) {
-    return <div className="p-8">Loading database diagnostics...</div>;
+    return (
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading database diagnostics...</p>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="max-w-6xl mx-auto p-8">
       <h1 className="text-3xl font-bold mb-8">Database Connection Troubleshooting</h1>
-      {/* ...existing code... */}
-    </div>
-  );
-}
-            <li>MongoDB will run on localhost:27017</li>
-            <li>Update your .env.local with local connection</li>
-          </ol>
-        </div>
-      </div>
+      <ol className="list-decimal pl-5 space-y-3 text-blue-700 mb-8">
+        <li>MongoDB will run on localhost:27017</li>
+        <li>Update your .env.local with local connection</li>
+      </ol>
 
       {/* Local MongoDB Test */}
       <div className={`rounded-lg p-6 mb-6 ${
@@ -167,4 +136,4 @@ export default function DbTroubleshootPage() {
       </div>
     </div>
   );
-// Ensure all code blocks are properly closed and no stray braces remain.
+}

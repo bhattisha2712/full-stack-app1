@@ -9,21 +9,6 @@ interface DatabaseStatus {
   error?: string;
 }
 
-  const [dbStatus, setDbStatus] = useState<DatabaseStatus | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-"use client";
-
-import { useEffect, useState } from "react";
-
-interface DatabaseStatus {
-  status: string;
-  message?: string;
-  timestamp?: string;
-  error?: string;
-}
-
 export default function DbTestPage() {
   const [dbStatus, setDbStatus] = useState<DatabaseStatus | null>(null);
   const [loading, setLoading] = useState(true);
@@ -57,40 +42,35 @@ export default function DbTestPage() {
     );
   }
 
+
   return (
     <div className="max-w-4xl mx-auto p-8">
       <h1 className="text-3xl font-bold mb-6 text-gray-900">Database Connection Test</h1>
-      {/* ...existing code... */}
-    </div>
-  );
-}
-        
-        <div className="space-y-2">
-          <div className="flex">
-            <span className="font-medium text-gray-600 w-32">Status:</span>
-            <span className={dbStatus?.status === "Connected" ? "text-green-700" : "text-red-700"}>
-              {dbStatus?.status}
-            </span>
-          </div>
-          <div className="flex">
-            <span className="font-medium text-gray-600 w-32">Message:</span>
-            <span className="text-gray-900">{dbStatus?.message}</span>
-          </div>
-          <div className="flex">
-            <span className="font-medium text-gray-600 w-32">Time:</span>
-            <span className="text-gray-900">{dbStatus?.timestamp}</span>
-          </div>
-          {dbStatus?.error && (
-            <div className="flex">
-              <span className="font-medium text-gray-600 w-32">Error:</span>
-              <span className="text-red-700 break-all">{dbStatus.error}</span>
-            </div>
-          )}
+      <div className="space-y-2">
+        <div className="flex">
+          <span className="font-medium text-gray-600 w-32">Status:</span>
+          <span className={dbStatus?.status === "Connected" ? "text-green-700" : "text-red-700"}>
+            {dbStatus?.status}
+          </span>
         </div>
+        <div className="flex">
+          <span className="font-medium text-gray-600 w-32">Message:</span>
+          <span className="text-gray-900">{dbStatus?.message}</span>
+        </div>
+        <div className="flex">
+          <span className="font-medium text-gray-600 w-32">Time:</span>
+          <span className="text-gray-900">{dbStatus?.timestamp}</span>
+        </div>
+        {dbStatus?.error && (
+          <div className="flex">
+            <span className="font-medium text-gray-600 w-32">Error:</span>
+            <span className="text-red-700 break-all">{dbStatus.error}</span>
+          </div>
+        )}
       </div>
 
       {dbStatus?.status !== "Connected" && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mt-6">
           <h3 className="text-lg font-semibold text-blue-800 mb-3">Troubleshooting Steps:</h3>
           <ol className="space-y-2 text-blue-700">
             <li className="flex items-start">
@@ -127,4 +107,4 @@ export default function DbTestPage() {
       </div>
     </div>
   );
-// Ensure all code blocks are properly closed and no stray braces remain.
+}
